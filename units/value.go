@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/samber/lo"
-	"gitlab.ozon.ru/at/measure/measure"
-	"gitlab.ozon.ru/at/measure/measure/prefix"
+	"gitlab.ozon.ru/at/measure"
+	"gitlab.ozon.ru/at/measure/prefix"
 )
 
 // Value is type represents measurement

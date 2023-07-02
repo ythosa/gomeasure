@@ -3,8 +3,8 @@ package units
 import (
 	"fmt"
 
-	"gitlab.ozon.ru/at/measure/measure"
-	"gitlab.ozon.ru/at/measure/measure/prefix/metric"
+	"gitlab.ozon.ru/at/measure"
+	"gitlab.ozon.ru/at/measure/prefix/metric"
 )
 
 // Amount ...
