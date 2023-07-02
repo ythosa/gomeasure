@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.ozon.ru/re/teams/itc-quotas/internal/quotas/measure/prefix"
-	"gitlab.ozon.ru/re/teams/itc-quotas/internal/quotas/measure/prefix/binary"
+	"gitlab.ozon.ru/at/measure/measure/prefix"
+	"gitlab.ozon.ru/at/measure/measure/prefix/binary"
 )
 
 func Test_value_Prettier(t *testing.T) {
