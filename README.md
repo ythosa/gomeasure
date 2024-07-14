@@ -30,7 +30,7 @@ import (
 
 func main() {
 	var memory = units.NewByte(500, binary.Tebi)
-	var replicaCount = 3
+	const replicaCount = 3
 
 	println(memory.Multiply(replicaCount).Format(2)) // -> 1.46 PiB
 }
