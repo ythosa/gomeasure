@@ -3,49 +3,49 @@ package units
 import (
 	"fmt"
 
-	"gitlab.ozon.ru/at/measure"
-	"gitlab.ozon.ru/at/measure/prefix/metric"
+	"github.com/ythosa/gomeasure"
+	"github.com/ythosa/gomeasure/prefix/metric"
 )
 
-// Amount ...
+// Amount represents amount unit
 type Amount struct {
-	value[metric.Prefix]
+	unit[metric.Prefix]
 }
 
-// NewAmount ...
-func NewAmount[T measure.Quantitiable](v T, p metric.Prefix) Amount {
-	return Amount{value: newValue(v, p)}
+// NewAmount returns new instance of Amount
+func NewAmount[T gomeasure.Quantitiable](v T, p metric.Prefix) Amount {
+	return Amount{unit: newValue(v, p)}
 }
 
-// Sum ...
+// Sum returns sum of current and other Amount unit
 func (a Amount) Sum(other Amount) Amount {
-	a.value = a.value.Sum(other.value)
+	a.unit = a.unit.Sum(other.unit)
 
 	return a
 }
 
-// ToPrefix ...
+// ToPrefix converts from current prefix to passed
 func (a Amount) ToPrefix(prefix metric.Prefix) Amount {
-	a.value = a.value.ToPrefix(prefix)
+	a.unit = a.unit.ToPrefix(prefix)
 
 	return a
 }
 
-// Multiply ...
-func (a Amount) Multiply(k measure.Quantity) Amount {
-	a.value = a.value.Multiply(k)
+// Multiply returns current unit multiplied to k
+func (a Amount) Multiply(k gomeasure.Quantity) Amount {
+	a.unit = a.unit.Multiply(k)
 
 	return a
 }
 
-// Magnitude ...
+// Magnitude returns string representation of magnitude (prefix + "")
 func (a Amount) Magnitude() string {
-	return "" + a.prefix.String()
+	return a.Prefix().String() + "шт."
 }
 
-// Format ...
+// Format returns formatted quantity with passed preciseness and appends magnitude
 func (a Amount) Format(prec int) string {
-	a.value = a.value.Prettier()
+	a.unit = a.unit.prettier()
 
-	return fmt.Sprintf("%s %s", a.value.Format(prec), a.Magnitude())
+	return fmt.Sprintf("%s %s", a.unit.Format(prec), a.Magnitude())
 }

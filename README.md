@@ -1,35 +1,37 @@
-# Measure
-Библиотека для типизированных измерений. Позволяет:
-- на уровне кода видеть, с какими единицами производится работа
-- производить арифметические операции только с "совместимыми" значениями
-- работать со списком типизированных значений, как с абстрактными значениями (отсутствуют арифметические операции)
+# gomeasure
 
-> Под измерением имеется в виду пара значений `(quantity, magnitude)`, где `magnitude` состоит из двух частей `(prefix, base_unit)`. 1 mCPU <=> `quantity` = 1, `prefix` = m, `base_unit` = CPU
+Library for typed measurements. Allows:
+- at the code level, see which units are being worked with
+- perform arithmetic operations only with "compatible" values
+- work with a list of typed values as with abstract values (there are no arithmetic operations)
 
-## Доступные типы
-- `Amount` — количество
-- `CPU` — ядра
-- `Second` — секунды
-- `Byte` — байты
+> By measurement we mean pair of values: `(quantity, magnitude)`, where `magnitude` consists of two
+> parts: `(prefix, base_unit)`. 1 mCPU <=> `quantity` = 1, `prefix` = m, `base unit` = CPU
 
-## Нюансы
-- Существует два вида префиксов, каждый из которых детерминирован типом:
-  - `Binary` — `Byte`
-  - `Metric` — все остальные
+## Available kinds
+- `Amount` — quantity
+- `CPU` — CPU count
+- `Second` — seconds count
+- `Byte` — bytes count
 
-## Пример использования
+## Nuances
+- There are two types of prefixes, each of which is type-determined:
+    - `Binary` — `Byte`
+    - `Metric` — all the others
+
+## Usage example
 ```go
 package main
 
 import (
-	"gitlab.ozon.ru/at/measure/prefix/binary"
-	"gitlab.ozon.ru/at/measure/units"
+    "github.com/ythosa/gomeasure/units"
+    "github.com/ythosa/gomeasure/prefix/binary"
 )
 
 func main() {
 	var memory = units.NewByte(500, binary.Tebi)
 	var replicaCount = 3
-	
+
 	println(memory.Multiply(replicaCount).Format(2)) // -> 1.46 PiB
 }
 ```

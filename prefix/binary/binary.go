@@ -1,6 +1,7 @@
+// Package binary contains implementation of binary unit prefix such as Kibi, Mebi, etc.
 package binary
 
-// Prefix ...
+// Prefix represents binary prefix
 type Prefix float64
 
 // Binary prefixes
@@ -13,7 +14,7 @@ const (
 	Pebi
 )
 
-// String ...
+// String returns prefix string value
 func (b Prefix) String() string {
 	switch b {
 	case Kibi:
@@ -31,7 +32,7 @@ func (b Prefix) String() string {
 	}
 }
 
-// Value ...
+// Value returns prefix num value
 func (b Prefix) Value() float64 {
 	return float64(b)
 }

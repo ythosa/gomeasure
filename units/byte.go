@@ -3,49 +3,49 @@ package units
 import (
 	"fmt"
 
-	"gitlab.ozon.ru/at/measure"
-	"gitlab.ozon.ru/at/measure/prefix/binary"
+	"github.com/ythosa/gomeasure"
+	"github.com/ythosa/gomeasure/prefix/binary"
 )
 
-// Byte ...
+// Byte represents byte unit
 type Byte struct {
-	value[binary.Prefix]
+	unit[binary.Prefix]
 }
 
-// NewByte ...
-func NewByte[T measure.Quantitiable](v T, p binary.Prefix) Byte {
-	return Byte{value: newValue(v, p)}
+// NewByte returns new instance of Byte
+func NewByte[T gomeasure.Quantitiable](v T, p binary.Prefix) Byte {
+	return Byte{unit: newValue(v, p)}
 }
 
-// Sum ...
+// Sum returns sum of current and other CPU unit
 func (b Byte) Sum(other Byte) Byte {
-	b.value = b.value.Sum(other.value)
+	b.unit = b.unit.Sum(other.unit)
 
 	return b
 }
 
-// ToPrefix ...
+// ToPrefix converts from current prefix to passed
 func (b Byte) ToPrefix(prefix binary.Prefix) Byte {
-	b.value = b.value.ToPrefix(prefix)
+	b.unit = b.unit.ToPrefix(prefix)
 
 	return b
 }
 
-// Multiply ...
-func (b Byte) Multiply(k measure.Quantity) Byte {
-	b.value = b.value.Multiply(k)
+// Multiply returns current unit multiplied to k
+func (b Byte) Multiply(k gomeasure.Quantity) Byte {
+	b.unit = b.unit.Multiply(k)
 
 	return b
 }
 
-// Magnitude ...
+// Magnitude returns string representation of magnitude (prefix + "B")
 func (b Byte) Magnitude() string {
 	return b.Prefix().String() + "B"
 }
 
-// Format ...
+// Format returns formatted quantity with passed preciseness and appends magnitude
 func (b Byte) Format(prec int) string {
-	b.value = b.value.Prettier()
+	b.unit = b.unit.prettier()
 
-	return fmt.Sprintf("%s %s", b.value.Format(prec), b.Magnitude())
+	return fmt.Sprintf("%s %s", b.unit.Format(prec), b.Magnitude())
 }

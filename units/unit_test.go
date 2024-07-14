@@ -4,15 +4,17 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.ozon.ru/at/measure/measure/prefix"
-	"gitlab.ozon.ru/at/measure/measure/prefix/binary"
+	"github.com/ythosa/gomeasure/prefix"
+	"github.com/ythosa/gomeasure/prefix/binary"
 )
 
 func Test_value_Prettier(t *testing.T) {
+	t.Parallel()
+
 	type testCase[P prefix.Prefix[P]] struct {
 		name string
-		m    value[P]
-		want value[P]
+		m    unit[P]
+		want unit[P]
 	}
 	tests := []testCase[binary.Prefix]{
 		{
@@ -35,11 +37,19 @@ func Test_value_Prettier(t *testing.T) {
 			m:    newValue(1023, binary.None),
 			want: newValue(1023, binary.None),
 		},
+		{
+			name: "negative",
+			m:    newValue(-4096, binary.Kibi),
+			want: newValue(-4, binary.Mebi),
+		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.m.Prettier(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Prettier() = %v, want %v", got, tt.want)
+			t.Parallel()
+
+			if got := tt.m.prettier(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("prettier() = %v, want %v", got, tt.want)
 			}
 		})
 	}

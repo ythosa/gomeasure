@@ -1,4 +1,4 @@
-package measure
+package gomeasure
 
 // Value is common interface for units
 type Value interface {
