@@ -3,47 +3,47 @@ package units
 import (
 	"fmt"
 
-	"gitlab.ozon.ru/at/measure"
-	"gitlab.ozon.ru/at/measure/prefix/metric"
+	"github.com/ythosa/gomeasure"
+	"github.com/ythosa/gomeasure/prefix/metric"
 )
 
-// Second ...
+// Second represents second unit
 type Second struct {
-	value[metric.Prefix]
+	unit[metric.Prefix]
 }
 
-// NewSecond ...
-func NewSecond[T measure.Quantitiable](v T, p metric.Prefix) Second {
-	return Second{value: newValue(v, p)}
+// NewSecond returns new instance of Second
+func NewSecond[T gomeasure.Quantitiable](v T, p metric.Prefix) Second {
+	return Second{unit: newValue(v, p)}
 }
 
-// Sum ...
+// Sum returns sum of current and other Second unit
 func (s Second) Sum(other Second) Second {
-	s.value = s.value.Sum(other.value)
+	s.unit = s.unit.Sum(other.unit)
 
 	return s
 }
 
-// ToPrefix ...
+// ToPrefix converts from current prefix to passed
 func (s Second) ToPrefix(prefix metric.Prefix) Second {
-	s.value = s.value.ToPrefix(prefix)
+	s.unit = s.unit.ToPrefix(prefix)
 
 	return s
 }
 
-// Multiply ...
-func (s Second) Multiply(k measure.Quantity) Second {
-	s.value = s.value.Multiply(k)
+// Multiply returns current unit multiplied to k
+func (s Second) Multiply(k gomeasure.Quantity) Second {
+	s.unit = s.unit.Multiply(k)
 
 	return s
 }
 
-// Magnitude ...
+// Magnitude returns string representation of magnitude (prefix + s)
 func (s Second) Magnitude() string {
 	return s.Prefix().String() + "s"
 }
 
-// Format ...
+// Format returns formatted quantity with passed preciseness and appends magnitude
 func (s Second) Format(prec int) string {
-	return fmt.Sprintf("%s %s", s.value.Format(prec), s.Magnitude())
+	return fmt.Sprintf("%s %s", s.unit.Format(prec), s.Magnitude())
 }

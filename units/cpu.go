@@ -3,49 +3,49 @@ package units
 import (
 	"fmt"
 
-	"gitlab.ozon.ru/at/measure"
-	"gitlab.ozon.ru/at/measure/prefix/metric"
+	"github.com/ythosa/gomeasure"
+	"github.com/ythosa/gomeasure/prefix/metric"
 )
 
-// CPU ...
+// CPU represents cpu unit
 type CPU struct {
-	value[metric.Prefix]
+	unit[metric.Prefix]
 }
 
-// NewCPU ...
-func NewCPU[T measure.Quantitiable](v T, p metric.Prefix) CPU {
-	return CPU{value: newValue(v, p)}
+// NewCPU returns new instance of CPU
+func NewCPU[T gomeasure.Quantitiable](v T, p metric.Prefix) CPU {
+	return CPU{unit: newValue(v, p)}
 }
 
-// Sum ...
+// Sum returns sum of current and other CPU unit
 func (c CPU) Sum(other CPU) CPU {
-	c.value = c.value.Sum(other.value)
+	c.unit = c.unit.Sum(other.unit)
 
 	return c
 }
 
-// ToPrefix ...
+// ToPrefix converts from current prefix to passed
 func (c CPU) ToPrefix(prefix metric.Prefix) CPU {
-	c.value = c.value.ToPrefix(prefix)
+	c.unit = c.unit.ToPrefix(prefix)
 
 	return c
 }
 
-// Multiply ...
-func (c CPU) Multiply(k measure.Quantity) CPU {
-	c.value = c.value.Multiply(k)
+// Multiply returns current unit multiplied to k
+func (c CPU) Multiply(k gomeasure.Quantity) CPU {
+	c.unit = c.unit.Multiply(k)
 
 	return c
 }
 
-// Magnitude ...
+// Magnitude returns string representation of magnitude (prefix + "cpu")
 func (c CPU) Magnitude() string {
 	return c.Prefix().String() + "CPU"
 }
 
-// Format ...
+// Format returns formatted quantity with passed preciseness and appends magnitude
 func (c CPU) Format(prec int) string {
-	c.value = c.value.Prettier()
+	c.unit = c.unit.prettier()
 
-	return fmt.Sprintf("%s %s", c.value.Format(prec), c.Magnitude())
+	return fmt.Sprintf("%s %s", c.unit.Format(prec), c.Magnitude())
 }

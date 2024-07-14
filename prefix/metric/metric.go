@@ -1,6 +1,7 @@
+// Package metric contains implementation of binary unit prefix such as Milli, etc.
 package metric
 
-// Prefix ...
+// Prefix represents metric prefix
 type Prefix float64
 
 // Metric prefixes
@@ -9,7 +10,7 @@ const (
 	None  Prefix = 1
 )
 
-// String ...
+// String returns prefix string value
 func (m Prefix) String() string {
 	switch m {
 	case Milli:
@@ -19,7 +20,7 @@ func (m Prefix) String() string {
 	}
 }
 
-// Value ...
+// Value returns prefix num value
 func (m Prefix) Value() float64 {
 	return float64(m)
 }
