@@ -5,8 +5,6 @@ LOCAL_BIN:=$(CURDIR)/bin
 GOLANGCI_BIN:=$(LOCAL_BIN)/golangci-lint
 # linter version to use
 GOLANGCI_TAG:=1.49.0
-# pipeline linter image to use in ci-lint target
-GOLANGCI_LINTER_IMAGE:="gitlab-registry.ozon.ru/platform/lint/$(strip $(GOLANGCI_TAG))/platform:v0.10"
 
 # Check local bin version
 ifneq ($(wildcard $(GOLANGCI_BIN)),)
@@ -56,3 +54,7 @@ lint: .lint
 
 .PHONY: lint-full
 lint-full: .lint-full
+
+.PHONY: test
+test:
+	go test ./...
