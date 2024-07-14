@@ -45,14 +45,14 @@ endif
 .PHONY: .lint
 .lint: install-lint
 	$(info Running lint...)
-	$(GOLANGCI_BIN) run --new-from-rev=origin/master --config=.golangci.pipeline.yaml ./...
+	$(GOLANGCI_BIN) run --new-from-rev=origin/master --config=.golangci-lint.yaml ./...
 
 .PHONY: lint
 lint: .lint
 
 .PHONY: .lint-full
 .lint-full: install-lint
-	$(GOLANGCI_BIN) run --config=.golangci.pipeline.yaml ./...
+	$(GOLANGCI_BIN) run --config=.golangci-lint.yaml ./...
 
 .PHONY: lint-full
 lint-full: .lint-full
